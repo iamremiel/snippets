@@ -1,0 +1,8 @@
+
+    var htmlStr = '';
+    $.each(response, function(k, v){
+        htmlStr += v.id + ' ' + v.name + '<br />';
+   });
+   $("#responsecontainer").html(htmlStr);
+   // alert(htmlStr);
+   console.log(response);
