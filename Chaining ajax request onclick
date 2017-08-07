@@ -1,0 +1,26 @@
+      $('.btn-success').click(function(){
+       //   first().then(second);
+       $.when(
+   $.getJSON('http://local.dev/pms/employee_lists/content/get_dropdown_data/bf_tbldilgposition', function(datae) {
+   var htmls='';
+         $.each(datae,function(key,value){
+                htmls+= '<option value="'+value.POSITION_ID+'">'+ value.POSITION_M +'</option>';
+                  // alert(value.DIVISION_M);
+              });
+         $('select.position').html('<option value="">Select Position</option>' + htmls);
+             // $('.admin-box').html(dataa);
+              alert(datae);
+            }),
+    $.getJSON('http://local.dev/pms/employee_lists/content/get_dropdown_data/bf_tblpersonneldivision', function(dataa) {
+           var htmlsa='';
+         $.each(dataa,function(key,value){
+                htmlsa+= '<option value="'+value.DIVISION_N+'">'+ value.DIVISION_M +'</option>';
+                  // alert(value.DIVISION_M);
+              });
+         $('select.division').html('<option value="">Select Division</option>' + htmlsa);
+         alert(dataa);
+            })
+    );
+
+
+  });
