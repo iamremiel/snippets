@@ -1,0 +1,1 @@
+      $('input,textarea,select').filter('[required]:visible').attr('placeholder','This is Required').parent('div').addClass('has-error has-danger');
