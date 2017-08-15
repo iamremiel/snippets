@@ -1,0 +1,13 @@
+ $('.modal').on('shown.bs.modal, loaded.bs.modal', function(e) {
+        // set form state
+        $(this).data('form-data', $(this).find('form').serialize());
+    });
+    
+    $('.modal').on('hide.bs.modal', function(e) {        
+        // check if the form data was changed since the modal was openened
+        if($(this).data('form-data') != $(this).find('form').serialize()) {
+            if(!confirm('Close the modal without saving??')) {
+                e.preventDefault();
+            }
+        }
+    });
