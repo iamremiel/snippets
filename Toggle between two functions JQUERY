@@ -17,3 +17,23 @@ function() {
       $('.ext_name').css('display','block').prop('disabled',false);
 $('.ext_name_other').css('display','none').prop('disabled',true);
 });
+
+
+
+//Another example
+ $("#ext_name_other").on("click",function(){
+
+if($(this).hasClass('clicked')){
+$(this).text('Other');
+$('.ext_name').css('display','block').prop('disabled',false);
+$('.ext_name_other').css('display','none').prop('disabled',true);
+$(this).removeClass('clicked');
+}
+else{
+$(this).addClass('clicked');
+$(this).text('Other');
+ $('.ext_name').css('display','none').attr('disabled');
+$('.ext_name_other').css('display','block').prop('disabled',false);
+} 
+
+}); 
