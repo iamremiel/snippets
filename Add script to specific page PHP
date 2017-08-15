@@ -1,0 +1,31 @@
+	<?php
+	$protocol=$_SERVER['REQUEST_SCHEME'];
+         $domain_name = $_SERVER['SERVER_NAME'];
+         $Path=$_SERVER['REQUEST_URI'];
+         
+           //Output curent domain without http
+         $str = $protocol.'//'.$domain_name.$Path;
+         
+          // echo get_site_url();  
+         // $str = "http://conversion-hub.com/projects/on-going/ch-revamp/blog/direct-marketing/";
+         $var1 =  (explode("/",$str));
+              echo "<pre>";
+         print_r($var1);
+         echo "</pre>";
+
+
+	 if($var1[6]==="employee_lists.html"){
+		echo "<script>
+            jQuery.noConflict();
+                (function( $ ) {
+                  $(function() {
+                   //   $('#create-item, #edit-item').css({'width':'60%','left':'35%'});
+                      
+                  });
+                })(jQuery);
+          </script>";
+	}
+	else{
+
+	}
+		?>
