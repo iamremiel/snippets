@@ -1,0 +1,5 @@
+  $("#create-item input[type=text]").each(function() {
+    if(/^[a-zA-Z0-9- ]*$/.test($(this).val()) == false) {
+    alert('Your search string contains illegal characters.');
+    }
+        });
