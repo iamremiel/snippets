@@ -1,0 +1,4 @@
+        foreach ($get_loans as $key) {
+          //get the value of the same key and make it as a child array
+        $arr[$key['EMP_N']][] = $key['loan_name'];          
+        }
