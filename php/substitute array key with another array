@@ -1,0 +1,7 @@
+
+//substiture parent key by another array
+$newArray= array();
+
+foreach( $explain_sql5_arr as $origKey => $valuey ){
+  $newArray[$monthdate[$origKey]] = $valuey;
+}
