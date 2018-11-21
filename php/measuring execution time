@@ -1,0 +1,6 @@
+$start = microtime(true);
+for ($i = 0; $i < 10000; ++$i) {
+    //your code here
+
+}
+echo 'Time needed: ' . (microtime(true) - $start) . '.';
