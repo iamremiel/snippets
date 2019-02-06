@@ -1,0 +1,9 @@
+jQuery(document).ready(function( $ ){
+		var height_window = $(window).height();
+		var width_window = $(window).width();
+   	if(width_window < 479 ){
+    $( ".classes" ).wrapAll( "<div style='padding:0px;' class='col-xs-12' />");
+    }
+});
+
+
