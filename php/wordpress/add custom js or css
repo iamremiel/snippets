@@ -1,0 +1,10 @@
+//add type script to the homepage
+function load_js_assets() {
+    if( is_page( 19 ) ) {
+        wp_enqueue_script('demo-js', get_template_directory_uri().'/js/demos.js', array('jquery'), '', true);
+        wp_enqueue_script('typed-js', get_template_directory_uri().'/js/typed.js', array('jquery'), '', true);
+        wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css', '', time() );
+    } 
+}
+
+add_action('wp_enqueue_scripts', 'load_js_assets');
