@@ -1,0 +1,2 @@
+/*we convert the WP post Object to a pure multi dimensional array*/
+$final_menu_items =  json_decode(json_encode($array), true);
