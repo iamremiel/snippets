@@ -1,0 +1,16 @@
+//get window width 
+var window_width = jQuery(window).width();
+ 
+ //fix on scroll
+ jQuery(window).bind('scroll', function () {
+    if (jQuery(window).scrollTop() > 50) {
+        jQuery('.head-section').addClass('fixed');
+        //jQuery('#site-logo').attr('style','position:relative;margin-top:0px;margin-bottom:0px;');
+     	//jQuery('#site-logo img').attr('style','max-height:75px;');
+    } 
+    else{
+     jQuery('.head-section').removeClass('fixed');
+     //  jQuery('#site-logo').attr('style','position:absolute;margin-top:-28px;margin-bottom:10px;');
+     	
+   }
+});
