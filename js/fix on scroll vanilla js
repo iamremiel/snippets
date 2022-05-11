@@ -1,0 +1,13 @@
+<script>
+var headertop = document.getElementById('header').offsetTop;
+
+window.onscroll = function() {
+    var y = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    if (y >= headertop) {
+        header.classList.add('fixed');
+    }
+    else {
+        header.classList.remove('fixed');
+    }
+};
+</script>
