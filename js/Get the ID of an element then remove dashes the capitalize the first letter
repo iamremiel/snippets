@@ -1,3 +1,19 @@
 var formid = document.getElementsByTagName('form')[0].id;
 var replacedformid = formid.replace(/-/g, " ");
 console.log(replacedformid.charAt(0).toUpperCase() + replacedformid.slice(1));
+
+
+//Other METHOD, MORE PRECISE
+function humanize(str) {
+  var i, frags = str.split('-');
+  for (i=0; i<frags.length; i++) {
+    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+  }
+  return frags.join(' ');
+}
+
+var formid = document.getElementsByTagName('form')[0].id;
+var replacedformid = formid.replace(/-/g, " ");
+
+
+console.log(humanize(formid));
