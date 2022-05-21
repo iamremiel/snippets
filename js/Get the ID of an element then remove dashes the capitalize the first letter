@@ -1,0 +1,3 @@
+var formid = document.getElementsByTagName('form')[0].id;
+var replacedformid = formid.replace(/-/g, " ");
+console.log(replacedformid.charAt(0).toUpperCase() + replacedformid.slice(1));
