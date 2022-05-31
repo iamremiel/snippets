@@ -29,7 +29,7 @@ document.getElementById("demo").innerHTML = personName;
 <label>Actual Message</label>
 <div id="demo3"></div>
 <script>
-let encrypted = CryptoJS.AES.encrypt("Message", "");
+let encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase");
 //U2FsdGVkX18ZUVvShFSES21qHsQEqZXMxQ9zgHy+bu0=
 
 let decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
