@@ -10,11 +10,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 
-<script>
-sessionStorage.setItem("lastname", "Smith");
-let personName = sessionStorage.getItem("lastname");
-document.getElementById("demo").innerHTML = personName;
-</script>
 
 
 <br><br>
@@ -29,15 +24,36 @@ document.getElementById("demo").innerHTML = personName;
 <label>Actual Message</label>
 <div id="demo3"></div>
 <script>
-let encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase");
+let enc_lname = CryptoJS.AES.encrypt("Message", "6GuZN1HB7zfv");
+let enc_email = CryptoJS.AES.encrypt("Message 1", "6GuZN1HB7zfv");
 //U2FsdGVkX18ZUVvShFSES21qHsQEqZXMxQ9zgHy+bu0=
 
-let decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+let decrypted = CryptoJS.AES.decrypt(enc_lname, "6GuZN1HB7zfv");
+
+function decrypted_objects(arr){
+      for (let i = 0; i < arr.length; i++) {
+       return CryptoJS.AES.decrypt(arr, "6GuZN1HB7zfv");
+      }
+
+}
+
+
+
 //4d657373616765
 
+sessionStorage.setItem("parameters", [enc_lname,enc_email]);
+sessionStorage.setItem("lastname", enc_lname);
+sessionStorage.setItem("email", enc_email);
 
-document.getElementById("demo1").innerHTML = encrypted;
-document.getElementById("demo2").innerHTML = decrypted;
+let personName = sessionStorage.getItem("lastname");
+let params = sessionStorage.getItem("parameters");
+let separated = params.split(",");
+
+
+document.getElementById("demo").innerHTML = personName;
+
+document.getElementById("demo1").innerHTML = separated;
+document.getElementById("demo2").innerHTML = decrypted_objects(separated[1]);
 document.getElementById("demo3").innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
 </script>
 </body>
