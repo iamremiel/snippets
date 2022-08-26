@@ -1,0 +1,17 @@
+var something = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            executed = true;
+               var x = document.getElementsByClassName("form-submission-text")[0];
+              if (window.getComputedStyle(x).display === "block") {
+             alert("Form Submitted");
+              }
+            
+                setTimeout(something, 0);
+        }
+    };
+})();
+
+something(); // "do something" happens
+something(); // nothing happens
