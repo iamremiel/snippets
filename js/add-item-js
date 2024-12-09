@@ -1,0 +1,174 @@
+<script>
+   
+
+ var $ = jQuery;
+
+    $(window).on('load', function() {
+        generatePricing();
+        addToCartClicked();
+    });
+
+
+    // Click on the product image options
+    $(document).on('click', '.custom-item', function() {
+        // Remove 'active' class from all sibling options within the same custom-options container
+        $(this).siblings().removeClass('active');
+        $(this).siblings().find('.sauna-type li').removeClass('active');
+
+        
+        // Add 'active' class to the clicked option
+        $(this).addClass('active');
+
+        const hasInactiveItems = $('.sauna-type ul > li:nth-child(n+2)').not('.active').length > 0;
+
+        if (hasInactiveItems) {
+        $(this).find('.sauna-type li:first-child').addClass('active');
+          // console.log('At least one item does not have the "active" class.');
+        }/* else {
+          console.log('All items have the "active" class.');
+        }
+*/
+
+        // Recalculate pricing
+        generatePricing();
+
+        // Show on mobile
+        $('.custom-add').css('display','block');
+    });
+
+    // On select change in dropdowns
+    $(document).on('change', '.custom-select select', function() {
+        // Reset all options' `selected` attributes within this select
+        $(this).find('option').removeAttr('selected');
+
+        // Set the `selected` attribute for the currently chosen option
+        $(this).find('option:selected').attr('selected', 'selected');
+
+        // Update the corresponding `.custom-item .option` based on the selected value
+        updateOptions();
+    });
+
+    function generatePricing() {
+        var variants = [];
+        var totalPrice = 0;
+
+        $('.custom-wrapper .custom-item').each(function() {
+            // Fetch the currently active option's variant ID and price
+            var activeOption = $(this).find('li.active');
+            var currentVariantId = activeOption.attr('variant-id');
+            var price = parseFloat(activeOption.attr('variant-price')) || 0;
+
+            // Only add variant ID if it's defined
+            if (currentVariantId) {
+                variants.push(currentVariantId);
+            }
+
+            // Accumulate the total price
+            totalPrice += price;
+        });
+
+        // Update the total price in the DOM with commas
+        $('#custom-price span, #custom-price-2 span').text(totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        console.log('Selected Variants:', variants);
+
+        // Update the dropdowns based on active li
+        selectOptions(variants);
+    }
+
+    function selectOptions(variants) {
+        // Iterate through `.custom-select select` elements and reset the selected options
+        $('.custom-select select').each(function() {
+            var select = $(this);
+            select.find('option').removeAttr('selected'); // Clear previous selections
+
+            // Match the active option with the dropdown value
+            variants.forEach(variantId => {
+                var matchingOption = select.find(`option[variant-id="${variantId}"]`);
+                if (matchingOption.length > 0) {
+                    matchingOption.attr('selected', 'selected');
+                }
+            });
+        });
+    }
+
+    function updateOptions() {
+        // Iterate over each `.custom-select select` and update corresponding `.custom-item .option`
+        $('.custom-select select').each(function() {
+            var selectedVariantId = $(this).find('option:selected').attr('variant-id');
+
+            if (selectedVariantId) {
+                $('.custom-wrapper .custom-item').each(function() {
+                    var matchingOption = $(this).find(`.option[variant-id="${selectedVariantId}"]`);
+
+                    if (matchingOption.length > 0) {
+                        // Remove 'active' class from siblings
+                        matchingOption.siblings().removeClass('active');
+                        // Add 'active' class to the matching option
+                        matchingOption.addClass('active');
+                    }
+                });
+            }
+        });
+
+        // Recalculate pricing after updating options
+        generatePricing();
+    }
+
+    function addToCartClicked() {
+        $('.custom-buy-now').on('click', function () {
+            var variants = [];
+
+            // Collect variant IDs and quantities
+            $('.custom-wrapper .custom-item').each(function () {
+                var currentVariantId = $(this).find('.option.active').attr('variant-id');
+
+                // Validate if currentVariantId is a valid number
+                if (currentVariantId && !isNaN(Number(currentVariantId))) {
+                    variants.push({ id: Number(currentVariantId), quantity: 1 });
+                }
+            });
+
+            // Add fixed variants
+            // variants.push(
+                //{ id: 45651486376154, quantity: 1 }, // stone variant id
+                //{ id: 45651503415514, quantity: 1 } // led variant id
+            //);
+
+            // Ensure there are valid variants to add
+            if (variants.length === 4) {
+                // Send all variants in one request
+                addToCart(variants);
+            } else {
+                alert('Complete the product options. (e.g. wood, heater, door & window options)');
+
+                document.querySelector('#customize').scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                });
+            }
+        });
+    }
+
+    function addToCart(items) {
+        fetch('/cart/add.js?avis=1', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ items: items }), // Send all items in one payload
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Products added to cart:', data);
+                // Redirect to cart page
+                window.location.href = "/cart";
+            })
+            .catch(error => {
+                console.error('Error adding products to cart:', error);
+            });
+    }
+
+
+
+
+</script>
